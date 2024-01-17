@@ -1,14 +1,16 @@
 function main() {
   var CANVAS = document.getElementById("webgl-target");
-  CANVAS.width = window.innerWidth;
-  CANVAS.height = window.innerHeight;
+  CANVAS.width = 1080;
+  CANVAS.height = 720;
   var AMORTIZATION = 0.95;
   var drag = false;
   var x_prev, y_prev;
-  var dX = 0, dY = 0;
+  var dX = 0;
+  var dY = 0;
   var mouseDown = function(e) {
     drag = true;
-    x_prev = e.pageX, y_prev = e.pageY;
+    x_prev = e.pageX;
+    y_prev = e.pageY;
     e.preventDefault();
     return false;
   };
@@ -21,7 +23,8 @@ function main() {
       dY = (e.pageY-y_prev) * 2 * Math.PI / CANVAS.height;
       THETA += dX;
       PHI += dY;
-      x_prev = e.pageX, y_prev = e.pageY;
+      x_prev = e.pageX;
+      y_prev = e.pageY;
       e.preventDefault();
   };
   CANVAS.addEventListener("mousedown", mouseDown, false);
@@ -35,23 +38,17 @@ function main() {
     alert("WebGL context cannot be initialized");
     return false;
   }
-  var shader_vertex_source = '\n\
-  attribute vec3 position;\n\
-  uniform mat4 Pmatrix, Vmatrix, Mmatrix;\n\
-  attribute vec3 color; // the color of the point\n\
-  varying vec3 vColor; // color which will be interpolated per pix\n\
-  \n\
-  void main(void) {\n\
-  gl_Position = Pmatrix * Vmatrix * Mmatrix * vec4(position, 1.);\n\
-  vColor = color;\n\
-  }';
-  var shader_fragment_source = '\n\
-  precision mediump float;\n\
-  varying vec3 vColor;\n\
-  \n\
-  void main(void) {\n\
-  gl_FragColor = vec4(vColor, 1.);\n\
-  }';
+  var shader_vertex_source = 'attribute vec3 position;\n\
+uniform mat4 Pmatrix, Vmatrix, Mmatrix;\n\
+attribute vec3 color;\n\
+varying vec3 vColor;\n\
+void main(void){\n\
+gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.);\n\
+vColor = color;}';
+  var shader_fragment_source = 'precision mediump float;\n\
+varying vec3 vColor;\n\
+void main(void){\n\
+gl_FragColor = vec4(vColor, 1.);}';
   var compile_shader = function(source, type, typeString) {
     var shader = GL.createShader(type);
     GL.shaderSource(shader, source);

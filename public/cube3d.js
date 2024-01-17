@@ -38,9 +38,7 @@ function startWebgl() {
   }
   console.log("WebGL has been successfully initialized");
   const shaderVertexSrc = 'attribute vec3 position;\n\
-uniform mat4 Pmatrix;\n\
-uniform mat4 Vmatrix;\n\
-uniform mat4 Mmatrix;\n\
+uniform mat4 Pmatrix, Vmatrix, Mmatrix;\n\
 attribute vec3 color;\n\
 varying vec3 vColor;\n\
 void main(void){\n\

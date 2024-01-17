@@ -12,18 +12,16 @@ function startWebgl() {
     }
     console.log("WebGL has been successfully initialized");
     const shaderVertexSrc = 'attribute vec3 position;\n\
-    uniform mat4 Pmatrix;\n\
-    uniform mat4 Vmatrix;\n\
-    uniform mat4 Mmatrix;\n\
-    attribute vec3 color;\n\
-    varying vec3 vColor;\n\
-    void main(void){\n\
-    gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.);\n\
-    vColor = color;}';
+  uniform mat4 Pmatrix, Vmatrix, Mmatrix;\n\
+  attribute vec3 color;\n\
+  varying vec3 vColor;\n\
+  void main(void){\n\
+  gl_Position = Pmatrix*Vmatrix*Mmatrix*vec4(position, 1.);\n\
+  vColor = color;}';
     const shaderFragmentSrc = 'precision mediump float;\n\
-    varying vec3 vColor;\n\
-    void main(void){\n\
-    gl_FragColor = vec4(vColor, 1.);}';
+  varying vec3 vColor;\n\
+  void main(void){\n\
+  gl_FragColor = vec4(vColor, 1.);}';
     var compileShader = function(source, type, typeString) {
       var shader = GL.createShader(type);
       GL.shaderSource(shader, source);
