@@ -1,7 +1,7 @@
 function main() {
     var CANVAS = document.getElementById("webgl-target");
-    CANVAS.width = window.innerWidth;
-    CANVAS.height = window.innerHeight;
+    CANVAS.width = 1080;
+    CANVAS.height = 720;
     var AMORTIZATION = 0.95;
     var drag = false;
     var x_prev, y_prev;
@@ -208,7 +208,7 @@ function main() {
       GL.viewport(0, 0, CANVAS.width, CANVAS.height);
       GL.clearColor(0.0, 0.0, 0.0, 0.0);
       GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
-      GL.uniformMatrix4fv(_Pmatrix, false, PROJMATRIX_RTT);
+      GL.uniformMatrix4fv(_Pmatrix, false, PROJMATRIX);
       GL.uniformMatrix4fv(_Vmatrix, false, VIEWMATRIX);
       GL.uniformMatrix4fv(_Mmatrix, false, MOVEMATRIX);
       GL.bindTexture(GL.TEXTURE_2D, texture_rtt);
