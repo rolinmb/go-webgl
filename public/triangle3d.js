@@ -1,8 +1,8 @@
 function startWebgl() {
     console.log("Attempting to start WebGL");
     var CANVAS = document.getElementById("webgl-target");
-    CANVAS.width = window.innerWidth;
-    CANVAS.height = window.innerHeight;
+    CANVAS.width = 1080;
+    CANVAS.height = 720;
     var GL;
     try {
       GL = CANVAS.getContext("webgl", {antialias: true});
@@ -52,10 +52,10 @@ function startWebgl() {
     GL.enableVertexAttribArray(_position);
     GL.useProgram(shaderProgram);
     console.log("Successfully linked program shaders and is ready to render to context/target");
-    var triVertices = [
-      -1, -1, 0, 0, 0, 1,  // vertex (-1, -1, 0)
-       1, -1, 0, 1, 1, 0,  // vertex ( 1, -1, 0)
-       1,  1, 0, 1, 0, 0   // vertex ( 1,  1, 0) 
+    var triVertices = [ // 2D triangle projected into 3D: 3 vertices and 3 faces
+      -1, -1, 0, 0, 0, 1, // (-1,-1,0)
+       1, -1, 0, 1, 1, 0, // (1,-1,0)
+       1,  1, 0, 1, 0, 0 // (1, 1, 0)
     ];
     var triVbo = GL.createBuffer();
     GL.bindBuffer(GL.ARRAY_BUFFER, triVbo);
