@@ -11,8 +11,8 @@ const (
 
 func mainHandler(h http.Handler) http.Handler {
   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Access-Control-Allow-Origin", "*")
-    fmt.Println("mainHandler(): * New Client Connection:", r.RemoteAddr)
+    w.Header().Set("Access-Control-Allow-Origin", "*") // Allow CORS
+    fmt.Println("mainHandler(): * New Client Request:", r.RemoteAddr)
     h.ServeHTTP(w, r)
   })
 }
