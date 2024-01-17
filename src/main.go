@@ -1,15 +1,24 @@
 package main
 
-import ( "net/http" )
+import (
+  "fmt"
+  "net/http"
+)
 
-func corsHandler(h http.Handler) http.Handler {
+const (
+  PUBLIC = "public"
+)
+
+func mainHandler(h http.Handler) http.Handler {
   return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Access-Control-Allow-Origin", "*")
+    fmt.Println("mainHandler(): * New Client Connection:", r.RemoteAddr)
     h.ServeHTTP(w, r)
   })
 }
 
 func main() {
-  http.Handle("/", corsHandler(http.FileServer(http.Dir("public"))))
+  http.Handle("/", mainHandler(http.FileServer(http.Dir(PUBLIC))))
+  fmt.Println("main(): Starting local hosting server for go-webgl on localhost:8080")
   http.ListenAndServe(":8080", nil)
 }
