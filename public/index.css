@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+}
+
+#webgl-target {
+  position: absolute;
+  background-color: black;
+}
