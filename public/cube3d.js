@@ -3,6 +3,32 @@ function startWebgl() {
   var CANVAS = document.getElementById("webgl-target");
   CANVAS.width = 1080;
   CANVAS.height = 720;
+  var drag = false;
+  var xprev,yprev;
+  var mouseDn = function(e) {
+    drag = true;
+    xprev = e.pageX;
+    yprev = e.pageY;
+    e.preventDefault();
+    return false;
+  }
+  var mouseUp = function(e) {
+    drag = false;
+  }
+  var mouseMv = function(e) {
+    if (!drag) {return false;}
+    let dx = e.pageX-xprev;
+    let dy = e.pageY-yprev;
+    THETA += dx*2*Math.PI/CANVAS.width;
+    PHI += dy*2*Math.PI/CANVAS.height;
+    xprev = e.pageX;
+    yprev = e.pageY;
+    e.preventDefault();
+  }
+  CANVAS.addEventListener("mousedown", mouseDn, false);
+  CANVAS.addEventListener("mouseup", mouseUp, false);
+  CANVAS.addEventListener("mouseout", mouseUp, false);
+  CANVAS.addEventListener("mousemove", mouseMv, false);
   var GL;
   try {
     GL = CANVAS.getContext("webgl", {antialias: true});
@@ -62,38 +88,7 @@ gl_FragColor = vec4(vColor, 1.);}';
     1, 1, 1, 1, 1, 1,
     -1, 1, 1, 0, 1, 1
   ];
-  /*var cubeVertices = [ // solid color faces
-    -1, -1, -1,     1, 1, 0,
-    1, -1, -1,     1, 1, 0,
-    1,  1, -1,     1, 1, 0,
-    -1,  1, -1,     1, 1, 0,
-
-    -1, -1, 1,     0, 0, 1,
-    1, -1, 1,     0, 0, 1,
-    1,  1, 1,     0, 0, 1,
-    -1,  1, 1,     0, 0, 1,
-
-    -1, -1, -1,     0, 1, 1,
-    -1,  1, -1,     0, 1, 1,
-    -1,  1,  1,     0, 1, 1,
-    -1, -1,  1,     0, 1, 1,
-
-    1, -1, -1,     1, 0, 0,
-    1,  1, -1,     1, 0, 0,
-    1,  1,  1,     1, 0, 0,
-    1, -1,  1,     1, 0, 0,
-
-    -1, -1, -1,     1, 0, 1,
-    -1, -1,  1,     1, 0, 1,
-    1, -1,  1,     1, 0, 1,
-    1, -1, -1,     1, 0, 1,
-
-    -1, 1, -1,     0, 1, 0,
-    -1, 1,  1,     0, 1, 0,
-    1, 1,  1,     0, 1, 0,
-    1, 1, -1,     0, 1, 0
-  ];
-  */var cubeVbo = GL.createBuffer();
+  var cubeVbo = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, cubeVbo);
   GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeVertices), GL.STATIC_DRAW);
   console.log("Successfully bound cube vertices to WebGL rendering buffer");
@@ -105,26 +100,7 @@ gl_FragColor = vec4(vColor, 1.);}';
     2, 3, 6, 3, 7, 6,
     0, 1, 5, 0, 4, 5
   ];
-  /*var cubeFaces = [
-    0, 1, 2,
-    0, 2, 3,
-
-    4, 5, 6,
-    4, 6, 7,
-
-    8, 9, 10,
-    8, 10, 11,
-
-    12, 13, 14,
-    12, 14, 15,
-
-    16, 17, 18,
-    16, 18, 19,
-
-    20, 21, 22,
-    20, 22, 23
-  ];
-  */var cubeFbo = GL.createBuffer();
+  var cubeFbo = GL.createBuffer();
   GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, cubeFbo);
   GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeFaces), GL.STATIC_DRAW);
   console.log("Successfully bound cube faces to WebGL rendering buffer");
@@ -132,9 +108,10 @@ gl_FragColor = vec4(vColor, 1.);}';
   var VIEWMATRIX = UTILS.getId4();
   var MOVEMATRIX = UTILS.getId4();
   UTILS.translateZ(VIEWMATRIX, -5);
-  GL.clearColor(0.0, 0.0, 0.0, 0.0);
+  var THETA = 0, PHI = 0;
   GL.enable(GL.DEPTH_TEST);
   GL.depthFunc(GL.LEQUAL);
+  GL.clearColor(0.0, 0.0, 0.0, 0.0);
   GL.clearDepth(1.0);
   var tlast = 0;
   console.log('Starting WebGL render to <canvas id="webgl-target"> context');
