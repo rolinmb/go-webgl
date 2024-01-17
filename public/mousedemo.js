@@ -141,10 +141,11 @@ gl_FragColor = vec4(vColor, 1.);}';
   GL.clearDepth(1.0);
   var time_prev = 0;
   var animate = function(time) {
-    var dt = time - time_prev;
     if (!drag) {
-      dX *= AMORTIZATION, dY *= AMORTIZATION;
-      THETA += dX, PHI += dY;
+      dX *= AMORTIZATION;
+      dY *= AMORTIZATION;
+      THETA += dX;
+      PHI += dY;
     }
     UTILS.resetId4(MOVEMATRIX);
     UTILS.rotateY(MOVEMATRIX, THETA);
