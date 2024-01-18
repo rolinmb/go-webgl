@@ -2,7 +2,7 @@ function main() {
     var CANVAS = document.getElementById("webgl-target");
     CANVAS.width = 1080;
     CANVAS.height = 720;
-    var AMORTIZATION = 0.95;
+    /*var AMORTIZATION = 0.95;
     var drag = false;
     var x_prev, y_prev;
     var dX = 0, dY = 0;
@@ -30,7 +30,7 @@ function main() {
     CANVAS.addEventListener("mouseup", mouseUp, false);
     CANVAS.addEventListener("mouseout", mouseUp, false);
     CANVAS.addEventListener("mousemove", mouseMove, false);
-    var GL;
+    */var GL;
     try {
       GL = CANVAS.getContext("webgl", {antialias: true});
     } catch (e) {
@@ -135,8 +135,8 @@ function main() {
   var MOVEMATRIX = UTILS.getId4();
   var VIEWMATRIX = UTILS.getId4();
   UTILS.translateZ(VIEWMATRIX, -6);
-  var THETA = 0;
-  var PHI = 0;
+  //var THETA = 0;
+  //var PHI = 0;
   var textureCanvas = document.getElementById("texture-canvas");
   var textureContext = textureCanvas.getContext("2d");
   textureContext.fillStyle = "rgb(255,0,0)";
