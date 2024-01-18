@@ -6,11 +6,12 @@ body {
   position: absolute;
   background-color: black;
 }
-
+/* used in videoastexture.js and videoasphere.js */
 /*#test-vid {
   display: none;
 }*/
-
+ 
+/* used in canvasastexture.js and multicanvascube.js */
 #texture-canvas{
   width: 512;
   height: 512;

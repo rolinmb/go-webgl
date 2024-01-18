@@ -172,8 +172,8 @@ function main() {
   GL.clearDepth(1.0);
   var time_prev = 0;
   var animate = function(time) {
-      //var dt = time - time_prev;
-      if (!drag) {
+      var dt = time - time_prev;
+      /*if (!drag) {
         dX *= AMORTIZATION;
         dY *= AMORTIZATION;
         THETA += dX;
@@ -182,6 +182,9 @@ function main() {
       UTILS.resetId4(MOVEMATRIX);
       UTILS.rotateY(MOVEMATRIX, THETA);
       UTILS.rotateX(MOVEMATRIX, PHI);
+      */UTILS.rotateX(MOVEMATRIX, dt*0.00125);
+      UTILS.rotateY(MOVEMATRIX, dt*0.005);
+      UTILS.rotateZ(MOVEMATRIX, dt*0.00125);
       time_prev = time;
       GL.viewport(0, 0, CANVAS.width, CANVAS.height);
       GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
