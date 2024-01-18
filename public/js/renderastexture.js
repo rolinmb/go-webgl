@@ -41,12 +41,12 @@ function main() {
   varying vec2 vUV;\n\
   void main(void) {\n\
   gl_Position = Pmatrix * Vmatrix * Mmatrix * vec4(position, 1.);\n\
-  vUV = uv;\n\}';
+  vUV = uv;}';
     var shader_fragment_source = 'precision mediump float;\n\
   uniform sampler2D sampler;\n\
   varying vec2 vUV;\n\
   void main(void) {\n\
-  gl_FragColor = texture2D(sampler, vUV);\n\}';
+  gl_FragColor = texture2D(sampler, vUV);}';
     var compile_shader = function(source, type, typeString) {
       var shader = GL.createShader(type);
       GL.shaderSource(shader, source);

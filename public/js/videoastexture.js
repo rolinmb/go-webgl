@@ -159,8 +159,10 @@ function main() {
   var animate = function(time) {
       //var dt = time - time_prev;
       if (!drag) {
-        dX *= AMORTIZATION, dY *= AMORTIZATION;
-        THETA += dX, PHI += dY;
+        dX *= AMORTIZATION;
+        dY *= AMORTIZATION;
+        THETA += dX;
+        PHI += dY;
       }
       UTILS.resetId4(MOVEMATRIX);
       UTILS.rotateY(MOVEMATRIX, THETA);

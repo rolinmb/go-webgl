@@ -161,7 +161,7 @@ function main() {
     GL.clearDepth(1.0);
     var time_prev = 0;
     var animate = function(time) {
-      var dt = time - time_prev;
+      //var dt = time - time_prev;
       if (!drag) {
         dX *= AMORTIZATION, dY *= AMORTIZATION;
         THETA += dX, PHI += dY;
